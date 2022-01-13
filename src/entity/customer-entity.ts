@@ -9,7 +9,9 @@ export class CustomerEntity extends BaseEntity {
     @Column()
     name: string
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     age: number
 
 
