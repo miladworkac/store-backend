@@ -15,15 +15,41 @@ export class ProductEntity extends BaseEntity {
     price: number
 
     @ManyToOne(() => SellerEntity,
-        (seller) => seller.product)
-    seller: SellerEntity;
+        (sellers) => sellers.products)
+    sellers: SellerEntity;
+
+    // @ManyToMany(() => OrderEntity)
+    // @JoinTable()
+
+
+    // @ManyToMany(() => CustomerEntity)
+    // @JoinTable()
 
     @ManyToMany(() => OrderEntity)
-    @JoinTable()
-    orderentity: OrderEntity[];
+    @JoinTable({
+        name: "ProductOrder",
+        joinColumn: {
+            name: "orderId",
+            referencedColumnName: "id",
+        },
+        inverseJoinColumn: {
+            name: "productId",
+            referencedColumnName: "id",
+        },
+    })
+    orders: OrderEntity[];
 
     @ManyToMany(() => CustomerEntity)
-    @JoinTable()
-    customerentity: CustomerEntity[];
-
+    @JoinTable({
+        name: "CustomerProduct",
+        joinColumn: {
+            name: "customerId",
+            referencedColumnName: "id",
+        },
+        inverseJoinColumn: {
+            name: "productId",
+            referencedColumnName: "id",
+        },
+    })
+    customers: CustomerEntity[];
 }

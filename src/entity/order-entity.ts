@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { CustomerEntity } from "./customer-entity";
 import { ProductEntity } from "./product-entity";
 
@@ -8,8 +8,20 @@ export class OrderEntity extends BaseEntity {
     id: number
 
     @ManyToOne(() => CustomerEntity,
-        (customer) => customer.order)
-    customer: CustomerEntity
-    // @ManyToMany(()=>ProductEntity)
+        (customers) => customers.orders)
+    customers: CustomerEntity
 
+    @ManyToMany(() => ProductEntity)
+    @JoinTable({
+        name: "ProductOrder",
+        joinColumn: {
+            name: "productId",
+            referencedColumnName: "id",
+        },
+        inverseJoinColumn: {
+            name: "orderId",
+            referencedColumnName: "id",
+        },
+    })
+    products: ProductEntity[];
 }

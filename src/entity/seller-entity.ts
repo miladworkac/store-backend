@@ -10,7 +10,7 @@ export class SellerEntity extends BaseEntity {
     name: string
 
     @OneToMany(() => ProductEntity,
-        (product) => product.id)
-    product: ProductEntity[];
+        (products) => products.id)
+    products: ProductEntity[];
 
 }

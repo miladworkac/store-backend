@@ -5,6 +5,8 @@ import { ProductEntity } from "./entity/product-entity";
 import { SellerEntity } from "./entity/seller-entity";
 import { OrderEntity } from "./entity/order-entity";
 import { CustomerController } from "./routes/customer-controller";
+import { ProductController } from "./routes/product-controller";
+import { SellerController } from "./routes/seller-controller";
 const app = express();
 async function main() {
     try {
@@ -25,15 +27,15 @@ async function main() {
         console.log("database connected");
         app.use(express.json());
         app.use("/api/customer", CustomerController);
-        // app.use("/api/tribe", TribeController);
+        app.use("/api/product", ProductController);
+        app.use("/api/seller", SellerController);
 
-        app.listen(5000, () => console.log("Listening on port 3000"));
+        app.listen(5000, () => console.log("Listening on port 5000"));
     } catch (e: any) {
         console.error(e);
         console.log("connection error");
     }
 }
-
 main();
 
 
